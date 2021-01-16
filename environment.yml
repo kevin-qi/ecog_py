@@ -1,7 +1,4 @@
-name: ecog_py2
-channels:
-  - pypi
-  - conda-forge
+name: ecog_py
 dependencies:
   - numpy
   - sympy
@@ -16,4 +13,6 @@ dependencies:
   - mkl_fft
   - jupyter
   - sphinx
-  - pynwb
+  - pip:
+    - process-nwb
+    - pynwb
