@@ -10,7 +10,7 @@ import numpy as np
 
 def dwt(data, fs, fsds=1000, zscore=True):
     """
-    Performs Discrete Wavelet Transform on multi-channel ECoG data. The processing is done per channel to reduce RAM usage.
+    Performs Discrete Wavelet Transform on multi-channel ECoG data. The processing is done channel by channel to reduce RAM usage.
     
     Parameters
     ----------
@@ -20,12 +20,14 @@ def dwt(data, fs, fsds=1000, zscore=True):
         ECoG data sampling frequency
     fsds: 
         Post-wavelet transform downsampled frequency (to reduce memory usage).
+    zscore : bool, default True
+        If True, zscore each frequency band. (Enables comparison across frequency bands despite 1/f power falloff)
         
     Returns
     -------
-    ndarray (num_channels, num_freq_bands, num_samples)
+    (num_samples, num_channels) : ndarray
         Wavelet transformed ECoG data.
-    ndarray (num_freq_bands)
+    (num_freq_bands,) : ndarray
         Center frequencies of DWT filterbank 
         
     """

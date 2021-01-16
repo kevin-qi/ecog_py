@@ -36,8 +36,8 @@ def load_ecog(file_path, fs, fsds = 3000, delimiter='\t'):
 
 	Returns
 	-------
-	ndarray (num_samples, num_channels)
-		Downsampled ecog data with shape (num_samples, num_channels).
+	(num_samples, num_channels) : ndarray
+		Downsampled ecog data.
 
 	"""
 
@@ -104,11 +104,11 @@ def load_trial_timings(file_path, fs, fsds = 3000, delimiter='\t'):
 
 	Returns
 	-------
-	ndarray (num_samples,)
+	(num_samples,) : ndarray
 		Square wave sweep start (high during trial, low in between trial).
 		Downsampled to fsds (Must match fsds used for loading ECoG data!!!).
 
-	ndarray (num_trials, 2)
+	(num_trials, 2) : ndarray
 		Array of trial start / end indices.
 		Example) [[0, 100], [150, 250], ..., [trial_start, trial_end]].
 	"""
@@ -145,6 +145,7 @@ def load_trial_timings(file_path, fs, fsds = 3000, delimiter='\t'):
 	trial_indices = get_trial_indices(sweep_start_ds)
 
 	print('Trial timing loading complete!')
+
 	return sweep_start_ds, trial_indices
 
 def load_stimuli_info(*file_paths, delimiter='\t'):

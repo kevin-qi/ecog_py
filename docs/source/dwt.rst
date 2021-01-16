@@ -1,5 +1,5 @@
 Discrete Wavelet Transform
-=================
+==========================
 
 .. automodule:: ecog_py.dwt
    :members:

@@ -5,4 +5,5 @@ API
     :maxdepth: 2
 
     source/dataloader
+    source/preprocessing
     source/dwt
