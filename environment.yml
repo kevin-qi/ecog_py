@@ -1,4 +1,4 @@
-name: ecog_py
+name: ecog_py2
 channels:
   - pypi
   - conda-forge
