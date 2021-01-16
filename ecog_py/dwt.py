@@ -5,7 +5,7 @@ DWT
 Performs discrete wavelet transforms.
 """
 
-from process_nwb import wavelet_transform
+import process_nwb
 import numpy as np
 
 def wavelet_transform(data, fs, fsds=1000):
@@ -39,7 +39,7 @@ def wavelet_transform(data, fs, fsds=1000):
     print("Wavelet transforming per channel... (This may take a while)")
     for channel in data.T:
         print('Processing channel {} ...'.format(i))
-        tf, _, ctr_freq, _ = wavelet_transform.wavelet_transform(channel.reshape(-1, 1), fs, filters='rat', hg_only=False, X_fft_h=None, npad=None)
+        tf, _, ctr_freq, _ = process_nwb.wavelet_transform.wavelet_transform(channel.reshape(-1, 1), fs, filters='rat', hg_only=False, X_fft_h=None, npad=None)
         tf_data.append(np.abs(tf))
         i += 1
         
