@@ -19,3 +19,4 @@ dependencies:
   - pip:
     - process-nwb
     - pynwb
+    - sphinx_rtd_theme
