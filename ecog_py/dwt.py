@@ -8,7 +8,7 @@ Performs discrete wavelet transforms.
 import process_nwb
 import numpy as np
 
-def wavelet_transform(data, fs, fsds=1000):
+def wavelet_transform(data, fs, fsds=1000, zscore=True):
     """
     Performs Discrete Wavelet Transform on multi-channel ECoG data. The processing is done per channel to reduce RAM usage.
     
@@ -40,6 +40,10 @@ def wavelet_transform(data, fs, fsds=1000):
     for channel in data.T:
         print('Processing channel {} ...'.format(i))
         tf, _, ctr_freq, _ = process_nwb.wavelet_transform.wavelet_transform(channel.reshape(-1, 1), fs, filters='rat', hg_only=False, X_fft_h=None, npad=None)
+        
+        if(zscore): # Z-score channel
+            tf = zscore_signal(tf)
+
         tf_data.append(np.abs(tf))
         i += 1
         
@@ -51,3 +55,10 @@ def wavelet_transform(data, fs, fsds=1000):
     tf_data = np.flip(tf_data, axis=1)
     
     return tf_data, ctr_freq
+
+def zscore_signal(signal, mean=None, std=None):
+    if mean is None:
+        mean = np.mean(signal)
+    if std is None:
+        std = np.std(signal)
+    return (signal - mean)/std

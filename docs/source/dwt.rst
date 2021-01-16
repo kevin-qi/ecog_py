@@ -5,3 +5,4 @@ Discrete Wavelet Transform
    :members:
    :undoc-members:
    :show-inheritance:
+   :exclude-members: zscore_signal
