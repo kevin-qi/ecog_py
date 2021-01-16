@@ -1,0 +1,19 @@
+name: ecog_py
+channels:
+  - pypi
+  - conda-forge
+dependencies:
+  - numpy
+  - sympy
+  - matplotlib
+  - pandas
+  - scipy
+  - pip
+  - h5py
+  - ipython
+  - nose
+  - scikit-learn
+  - mkl_fft
+  - jupyter
+  - sphinx
+  - pynwb
