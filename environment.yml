@@ -1,4 +1,7 @@
 name: ecog_py
+channels:
+  - default
+  - pypi
 dependencies:
   - numpy
   - sympy
