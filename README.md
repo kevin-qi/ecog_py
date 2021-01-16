@@ -1,17 +1,18 @@
+[![Documentation Status](https://readthedocs.org/projects/ecog-py/badge/?version=latest)](https://ecog-py.readthedocs.io/en/latest/?badge=latest)
+
 # ecog_py
 **ecog_py** is a ECoG processing pipeline that builds on top of Bouchard Lab's [process_nwb](https://github.com/BouchardLab/process_nwb) ECoG pre-processing library. The primary purpose of this codebase is to analyze spatial localization of uECoG signals from mice whisker S1. 
 
 # Dependencies
 
 - [conda](https://docs.conda.io/en/latest/)
-- [process_nwb](https://github.com/BouchardLab/process_nwb)
-	- Bouchard Lab's ECoG preprocessing pipeline
 
 # Installation
 1. Clone the git repo:
 `git clone https://github.com/kevin-qi/ecog_py.git`
-2. Install dependencies
-`conda install env`
+2. `cd ecog_py/`
+3. Build env from environment.yml
+`conda env create -f environment.yml`
 
 # System Requirements
 This pipeline has some pretty hefty RAM requirements because wavelet transformation splits every ECoG channel into 54 bands. It is recommended to have at least 32gb of RAM or more for a smooth experience, but you could probably get by with 16gb if you try hard enough and your dataset is small (less than 1gb). The key parameter for tuning RAM usage is the final downsampling factor **after** wavelet transformation, `post_ds_factor`.  The recommended `post_ds_factor` is roughly $$\text{post\_ds\_factor} \approx round(\frac{2 * 54 *\text{raw\_ecog\_RAM} * \frac{\text{fs}}{\text{fsds}}}{\text{available\_RAM}})$$
