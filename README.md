@@ -2,7 +2,7 @@
 [![Documentation Status](https://readthedocs.org/projects/ecog-py/badge/?version=latest)](https://ecog-py.readthedocs.io/en/latest/?badge=latest)
 
 # ecog_py
-**ecog_py** is a ECoG processing pipeline that builds on top of Bouchard Lab's [process_nwb](https://github.com/BouchardLab/process_nwb) ECoG pre-processing library. The primary purpose of this codebase is to analyze spatial localization of uECoG signals from mice whisker S1. 
+**ecog_py** is a ECoG processing pipeline that builds on top of Bouchard Lab's [process_nwb](https://github.com/BouchardLab/process_nwb) ECoG pre-processing library. The primary purpose of this codebase is to analyze uECoG signals from mice whisker S1. 
 
 # Dependencies
 
@@ -31,9 +31,10 @@ $ pip install -e .
 Your final project directory should look something like this
 ```bash
 ecog_py/ # project root
-	...
-	ecog_py/
-	process_nwb/
+  ...
+  ecog_py/
+  matlab/
+  process_nwb/
 ```
 
 # System Requirements
@@ -47,29 +48,14 @@ This ECoG processing pipeline requires a standardized data format. You may need 
 ## Pipeline Input Format
 
 - **ECoG Data**
-	- `*.csv`
-		- (rows, columns) = (num_samples, num_channels)
-		- No headers
-
-		*OR*
-	-	`*.npy`
-		-	Array shape: (num_samples, num_channels)
-
+	- `*TDT/_ch{}.csv`
+		- TDT output files. Should be 1 csv file per channel.
 - **Trial Timing**
-	- `*.csv`
-		- This is the `Sweep_Start` waveform from TDT
-			- Square wave: *low* in between trials, *high* during trials
-		- (rows, columns) = (num_samples, 1)
-		- No headers
-
-		*OR*
-	-	`*.npy`
-		-	This is the `Sweep_Start` waveform from TDT
-			- Square wave, *off* in between trials, *on* during trials
-		- Array shape: (num_samples, 1)
+	- `evt/*_Evnt.ddt`
+		- Event .ddt file from TDT
 
 - **Trial Info**
-	- `*.csv`
+	- `Adrian/*.csv`
 		- This is the `Trials.csv` file output from Igor
 			- Should look something like this:
 				```
@@ -80,7 +66,7 @@ This ECoG processing pipeline requires a standardized data format. You may need 
 				3	1	159085	39929	39934	51965	49959	51964	39934	4	0	0	0	2	0	0	0	0	5	0	0
 				4	1	159085	53198	53203	65234	63228	65233	53203	1	0	0	0	2	0	0	0	0	5	0	0
 - **Stimulis Info**
-	- `*.csv`
+	- `Adrian/*.csv`
 		- This is the `Stimuli.csv` file output from Igor
 			- Should look something like this:
 				```
@@ -95,7 +81,7 @@ This ECoG processing pipeline requires a standardized data format. You may need 
 					0	7	7	700	180.00
 					1	0	0	0	180.00
 - **Header Info**
-	- `*.csv`
+	- `Adrian/*.csv`
 		- This is the `Header.csv` file output from Igor
 			- Should look something like this:
 				```
@@ -116,12 +102,18 @@ This ECoG processing pipeline requires a standardized data format. You may need 
 Once you have all the data in the accepted formats, place them in your project directory as follows.
 ```
 data/
-  <your_ecog_data>.<csv / npy>
-  <your_trial_timing>.<csv / npy>
-  <your_trial_info>.csv
-  <your_stimulis_info>.csv
-  <your_header_info>.csv
+  <your_exp_name>/
+    TDT/
+      <your_ecog_data>.<csv> # Should be 32 of these for 32 channel recordings
+    Adrian/
+      <your_trial_info>.csv
+      <your_stimulis_info>.csv
+      <your_header_info>.csv
+    evt/
+      <your_event_info>.ddt # Event info from TDT in .ddt format
+  
 ecog_py/
+matlab/
 ```
 ## Pipeline Usage
 Now you are ready to get started! The pipeline template is provided in `ecog_py_pipeline_template.ipynb`. Anytime you want to run the pipeline on a new dataset, simply make a copy of the template and follow all the steps in the pipeline, filling in any required variables and parameters. The pipeline should walk you through all the steps in the analysis.

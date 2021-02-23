@@ -32,13 +32,14 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Preprocessing (CAR &amp; Filter line noise)" href="preprocessing.html" />
+    <link rel="next" title="Data structures (For working with Adrian/TDT data)" href="structures.html" />
     <link rel="prev" title="API" href="../api.html" /> 
 </head>
 
@@ -87,10 +88,8 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Loading ECoG Data</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#dataloader">DataLoader</a></li>
-</ul>
-</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Loading ECoG Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="structures.html">Data structures (For working with Adrian/TDT data)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="preprocessing.html">Preprocessing (CAR &amp; Filter line noise)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dwt.html">Discrete Wavelet Transform</a></li>
 </ul>
@@ -164,172 +163,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-ecog_py.dataloader">
-<span id="loading-ecog-data"></span><h1>Loading ECoG Data<a class="headerlink" href="#module-ecog_py.dataloader" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="dataloader">
-<h2>DataLoader<a class="headerlink" href="#dataloader" title="Permalink to this headline">¶</a></h2>
-<p>Loads necessary ECoG data files.</p>
-<dl class="py function">
-<dt id="ecog_py.dataloader.get_trial_indices">
-<code class="sig-prename descclassname">ecog_py.dataloader.</code><code class="sig-name descname">get_trial_indices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sweep_start</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ecog_py.dataloader.get_trial_indices" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute trial (start,end) indices from sweep_start. If sweep_start is at 1000hz, then trial indices will be in milliseconds.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>sweep_start</strong> (<em>ndarray</em><em> (</em><em>num_samples</em><em>,</em><em>)</em>) – sweep_start waveform (as extracted by get_sweep_start)</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>(num_trials,)</strong> – List of (start, end) tuples corresponding to when each trials occur</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>ndarray&lt;(int, int)&gt;</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ecog_py.dataloader.load_ecog">
-<code class="sig-prename descclassname">ecog_py.dataloader.</code><code class="sig-name descname">load_ecog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dir</span></em>, <em class="sig-param"><span class="n">fsds</span><span class="o">=</span><span class="default_value">3000</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">'\t'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ecog_py.dataloader.load_ecog" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load ECoG data and downsample from fs to fsds</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data_dir</strong> (<em>string</em>) – Data directory to TDT ECoG data. Should be a folder than contains all the data from each channel.</p></li>
-<li><p><strong>fsds</strong> (<em>float</em>) – Downsampled frequency for more efficient processing and reasonable system requirements.
-Must be atleast twice the highest frequency you want to analyze.
-Note that twice the nyquist frequency is the theoretical minimum, so it is recommended to go higher to have some wiggle room.</p></li>
-<li><p><strong>delimiter</strong> (<em>string</em><em>, </em><em>default</em>) – Delimiter used in csv file.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>(num_samples, num_channels)</strong> – Downsampled ecog data.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ecog_py.dataloader.load_header_info">
-<code class="sig-prename descclassname">ecog_py.dataloader.</code><code class="sig-name descname">load_header_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">file_paths</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">'\t'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ecog_py.dataloader.load_header_info" title="Permalink to this definition">¶</a></dt>
-<dd><p>Loads and combines header information from multiple header.csv files.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>*file_paths</strong> (<em>string</em>) – File names for header.csv files for each segment (S1, S2, S3 …).
-Make sure the file names are in chronological order!</p></li>
-<li><p><strong>delimiter</strong> (<em>string</em><em>, </em><em>default</em>) – Delimiter used in csv file.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>DataFrame containing combined trials information.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>pd.DataFrame</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">load_header_info</span><span class="p">(</span><span class="s1">&#39;S1_header.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;S2_header.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;S3_header.csv&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ecog_py.dataloader.load_stimuli_info">
-<code class="sig-prename descclassname">ecog_py.dataloader.</code><code class="sig-name descname">load_stimuli_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">file_paths</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">'\t'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ecog_py.dataloader.load_stimuli_info" title="Permalink to this definition">¶</a></dt>
-<dd><p>Loads and combines stimuli information from multiple stimuli.csv files</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>*file_paths</strong> (<em>string</em>) – File names for stimuli.csv files for each segment (S1, S2, S3 …).
-Make sure the file names are in chronological order!.</p></li>
-<li><p><strong>delimiter</strong> (<em>string</em><em>, </em><em>default</em>) – Delimiter used in csv file.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>DataFrame containing combined stimuli csv information.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>pd.DataFrame</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">load_stimuli_info</span><span class="p">(</span><span class="s1">&#39;S1_stimuli.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;S2_stimuli.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;S3_stimuli.csv&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ecog_py.dataloader.load_sweep_start">
-<code class="sig-prename descclassname">ecog_py.dataloader.</code><code class="sig-name descname">load_sweep_start</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">raw_mat_events_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ecog_py.dataloader.load_sweep_start" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extracts sweep_start waveform (used to align trials with ECoG data collected by TDT). This function only works with Tomer’s Matlab code (contained in matlab/ folder).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>raw_mat_events_path</strong> (<em>string</em>) – Relative path to RawMatEvents.mat file extracted by Tomer’s Matlab code</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>(num_samples,)</strong> – Sweep_start waveform downsampled to 1000hz (1 sample per ms). Ensure sampling frequencies match when aligning trials!</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ecog_py.dataloader.load_trial_info">
-<code class="sig-prename descclassname">ecog_py.dataloader.</code><code class="sig-name descname">load_trial_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">file_paths</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">'\t'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ecog_py.dataloader.load_trial_info" title="Permalink to this definition">¶</a></dt>
-<dd><p>Loads and combines trial information from multiple trials.csv files.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>*file_paths</strong> (<em>string</em>) – File names for trials.csv files for each segment (S1, S2, S3 …).
-Make sure the file names are in chronological order!</p></li>
-<li><p><strong>delimiter</strong> (<em>string</em><em>, </em><em>default</em>) – Delimiter used in csv file.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>DataFrame containing combined trials information.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>pd.DataFrame</p>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">load_trial_info</span><span class="p">(</span><span class="s1">&#39;S1_trials.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;S2_trials.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;S3_trials.csv&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt id="ecog_py.dataloader.load_trial_timings">
-<code class="sig-prename descclassname">ecog_py.dataloader.</code><code class="sig-name descname">load_trial_timings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span></em>, <em class="sig-param"><span class="n">fs</span></em>, <em class="sig-param"><span class="n">fsds</span><span class="o">=</span><span class="default_value">3000</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">'\t'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ecog_py.dataloader.load_trial_timings" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load trial timing information from Sweep_Start waveform. Sweep_Start is a square wave that encodes when trials occur.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>file_path</strong> (<em>string</em>) – File path to sweep start data.
-Data must be stored in either a .csv or .npy with shape (num_samples, 1).</p></li>
-<li><p><strong>fs</strong> (<em>float</em>) – Original data sampling frequency (Probably either 24kHz or 48kHz).</p></li>
-<li><p><strong>fsds</strong> (<em>float</em><em>, </em><em>default 3000</em>) – Downsampled frequency for more efficient processing and reasonable system requirements.
-Must be atleast twice the highest frequency you want to analyze.
-Note that twice the nyquist frequency is the theoretical minimum, so it is recommended to go higher to have some wiggle room.</p></li>
-<li><p><strong>delimiter</strong> (<em>string</em><em>, </em><em>default</em>) – Delimiter used in csv file.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>(num_samples,)</strong> (<em>ndarray</em>) – Square wave sweep start (high during trial, low in between trial).
-Downsampled to fsds (Must match fsds used for loading ECoG data!!!).</p></li>
-<li><p><strong>(num_trials, 2)</strong> (<em>ndarray</em>) – Array of trial start / end indices.
-Example) [[0, 100], [150, 250], …, [trial_start, trial_end]].</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
+  <div class="section" id="loading-ecog-data">
+<h1>Loading ECoG Data<a class="headerlink" href="#loading-ecog-data" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -338,7 +173,7 @@ Example) [[0, 100], [150, 250], …, [trial_start, trial_end]].</p></li>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="preprocessing.html" class="btn btn-neutral float-right" title="Preprocessing (CAR &amp; Filter line noise)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="structures.html" class="btn btn-neutral float-right" title="Data structures (For working with Adrian/TDT data)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="../api.html" class="btn btn-neutral float-left" title="API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 

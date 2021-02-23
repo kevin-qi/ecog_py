@@ -32,6 +32,7 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -224,11 +225,22 @@
 </dl>
 </dd></dl>
 
+<dl class="py attribute">
+<dt id="ecog_py.structures.Experiment.num_trials">
+<code class="sig-name descname">num_trials</code><a class="headerlink" href="#ecog_py.structures.Experiment.num_trials" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of trials</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
 <dt id="ecog_py.structures.Segment">
-<em class="property">class </em><code class="sig-prename descclassname">ecog_py.structures.</code><code class="sig-name descname">Segment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exp_name</span></em>, <em class="sig-param"><span class="n">segment_num</span></em>, <em class="sig-param"><span class="n">repetitions</span></em>, <em class="sig-param"><span class="n">stim_set</span></em>, <em class="sig-param"><span class="n">stim_layout</span></em>, <em class="sig-param"><span class="n">sweep_duration</span></em>, <em class="sig-param"><span class="n">sweep_period</span></em>, <em class="sig-param"><span class="n">first_trial_num</span></em>, <em class="sig-param"><span class="n">last_trial_num</span></em>, <em class="sig-param"><span class="n">stim_interval</span></em>, <em class="sig-param"><span class="n">stim_onset</span></em>, <em class="sig-param"><span class="n">stim_isi</span></em>, <em class="sig-param"><span class="n">stim_train_N</span></em>, <em class="sig-param"><span class="n">stim_shape</span></em>, <em class="sig-param"><span class="n">stim_ampl</span></em>, <em class="sig-param"><span class="n">stim_duration</span></em>, <em class="sig-param"><span class="n">whisker_map</span></em>, <em class="sig-param"><span class="n">trials_df</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ecog_py.structures.Segment" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">ecog_py.structures.</code><code class="sig-name descname">Segment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exp_name</span></em>, <em class="sig-param"><span class="n">segment_num</span></em>, <em class="sig-param"><span class="n">repetitions</span></em>, <em class="sig-param"><span class="n">stim_set</span></em>, <em class="sig-param"><span class="n">stim_layout</span></em>, <em class="sig-param"><span class="n">sweep_duration</span></em>, <em class="sig-param"><span class="n">sweep_period</span></em>, <em class="sig-param"><span class="n">first_trial_num</span></em>, <em class="sig-param"><span class="n">last_trial_num</span></em>, <em class="sig-param"><span class="n">stim_interval</span></em>, <em class="sig-param"><span class="n">stim_onset</span></em>, <em class="sig-param"><span class="n">stim_isi</span></em>, <em class="sig-param"><span class="n">stim_train_N</span></em>, <em class="sig-param"><span class="n">stim_shape</span></em>, <em class="sig-param"><span class="n">stim_ampl</span></em>, <em class="sig-param"><span class="n">stim_duration</span></em>, <em class="sig-param"><span class="n">whisker_map</span></em>, <em class="sig-param"><span class="n">trials_df</span></em>, <em class="sig-param"><span class="n">stimuli_df</span></em>, <em class="sig-param"><span class="n">has_laser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ecog_py.structures.Segment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Data structure for storing trial information and data</p>
 <dl class="py attribute">
@@ -422,7 +434,7 @@
 
 <dl class="py class">
 <dt id="ecog_py.structures.Trial">
-<em class="property">class </em><code class="sig-prename descclassname">ecog_py.structures.</code><code class="sig-name descname">Trial</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exp_name</span></em>, <em class="sig-param"><span class="n">segment_num</span></em>, <em class="sig-param"><span class="n">trial_num</span></em>, <em class="sig-param"><span class="n">sweep_duration</span></em>, <em class="sig-param"><span class="n">sweep_period</span></em>, <em class="sig-param"><span class="n">stim_layout</span></em>, <em class="sig-param"><span class="n">stim_interval</span></em>, <em class="sig-param"><span class="n">stim_onset</span></em>, <em class="sig-param"><span class="n">stim_isi</span></em>, <em class="sig-param"><span class="n">stim_train_N</span></em>, <em class="sig-param"><span class="n">stim_shape</span></em>, <em class="sig-param"><span class="n">stim_ampl</span></em>, <em class="sig-param"><span class="n">stim_duration</span></em>, <em class="sig-param"><span class="n">whisker_map</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ecog_py.structures.Trial" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">ecog_py.structures.</code><code class="sig-name descname">Trial</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exp_name</span></em>, <em class="sig-param"><span class="n">segment_num</span></em>, <em class="sig-param"><span class="n">trial_num</span></em>, <em class="sig-param"><span class="n">sweep_duration</span></em>, <em class="sig-param"><span class="n">sweep_period</span></em>, <em class="sig-param"><span class="n">stim_layout</span></em>, <em class="sig-param"><span class="n">stim_interval</span></em>, <em class="sig-param"><span class="n">stim_onset</span></em>, <em class="sig-param"><span class="n">stim_isi</span></em>, <em class="sig-param"><span class="n">stim_train_N</span></em>, <em class="sig-param"><span class="n">stim_shape</span></em>, <em class="sig-param"><span class="n">stim_ampl</span></em>, <em class="sig-param"><span class="n">stim_duration</span></em>, <em class="sig-param"><span class="n">whisker_map</span></em>, <em class="sig-param"><span class="n">stimuli_df</span></em>, <em class="sig-param"><span class="n">laser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ecog_py.structures.Trial" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Data structure for storing sweep information and data</p>
 </dd></dl>

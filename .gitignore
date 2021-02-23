@@ -1,1 +1,14 @@
 process_nwb/
+data/
+
+*.ipynb
+
+*.png
+*.jpg
+*.gif
+*.avi
+*.pyc
+
+*/__pycache__/
+*.log
+

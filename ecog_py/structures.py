@@ -258,13 +258,13 @@ class Segment:
         
     def __repr__(self):
         segment_repr = 'Segment Num: {}\n'.format(self.segment_num)
-        trial_repr = 'Sweep_duration: {}\nSweep_period: {}\nFirst Trial Num: {}\nLast Trial Num: {}\n'.format(
+        trial_repr = 'sweep_duration: {}\nsweep_period: {}\nfirst_trial_num: {}\nlast_trial_num: {}\n'.format(
             self.sweep_duration,
             self.sweep_period,
             self.first_trial_num,
             self.last_trial_num
         )
-        stim_repr = 'Stim_layout: {}\nStim_onset: {}\nStim_isi: {}\nStim_Interval: {}\nStim_N: {}\nStim_Duration: {}\nWhisker_Map: {}\n'.format(
+        stim_repr = 'stim_layout: {}\nstim_onset: {}\nstim_isi: {}\nstim_interval: {}\nstim_train_N: {}\nstim_duration: {}\nwhisker_map: {}\n'.format(
             self.stim_layout,
             self.stim_onset,
             self.stim_isi,
@@ -371,7 +371,7 @@ class Trial:
             self.sweep_duration,
             self.sweep_period,
         )
-        stim_repr = 'Stim_layout: {}\nStim_onset: {}\nStim_isi: {}\nStim_Interval: {}\nStim_N: {}\nStim_Duration: {}\nWhisker_Map: {}\nStim_Elem: {}\nStim_Whisker: {}'.format(
+        stim_repr = 'stim_layout: {}\nstim_onset: {}\nstim_isi: {}\nstim_interval: {}\nstim_train_N: {}\nstim_duration: {}\nwhisker_mp: {}\nstim_elems: {}\nstim_whiskers: {}'.format(
             self.stim_layout,
             self.stim_onset,
             self.stim_isi,
