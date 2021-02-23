@@ -170,14 +170,35 @@
 <h2>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">¶</a></h2>
 <p>Preprocess ECoG data using CAR and Notch filtering line noise</p>
 <dl class="py function">
+<dt id="ecog_py.preprocessing.find_bad_channels">
+<code class="sig-prename descclassname">ecog_py.preprocessing.</code><code class="sig-name descname">find_bad_channels</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ecog_raw</span></em>, <em class="sig-param"><span class="n">threshold</span><span class="o">=</span><span class="default_value">0.2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ecog_py.preprocessing.find_bad_channels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds any bad channels in the ecog recording.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ecog_raw</strong> (<em>ndarray</em><em> (</em><em>num_samples</em><em>, </em><em>num_channels</em><em>)</em>) – Raw ecog signal (ideally downsampled to a manageable frequency, ~3000hz)</p></li>
+<li><p><strong>threshold</strong> (<em>float</em>) – Pearson correlation coefficient threshold to be considered a bad channel.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of bad channel(s)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list&lt;int&gt;</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="ecog_py.preprocessing.preprocess">
-<code class="sig-prename descclassname">ecog_py.preprocessing.</code><code class="sig-name descname">preprocess</code><span class="sig-paren">(</span><em class="sig-param">ecog</em>, <em class="sig-param">fs</em>, <em class="sig-param">mean_frac=0.95</em>, <em class="sig-param">round_func=&lt;ufunc 'ceil'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#ecog_py.preprocessing.preprocess" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ecog_py.preprocessing.</code><code class="sig-name descname">preprocess</code><span class="sig-paren">(</span><em class="sig-param">ecog</em>, <em class="sig-param">fs</em>, <em class="sig-param">blacklist</em>, <em class="sig-param">mean_frac=0.95</em>, <em class="sig-param">round_func=&lt;ufunc 'ceil'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#ecog_py.preprocessing.preprocess" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs common average referencing and removes 60hz line noise via Notch filter.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ecog</strong> (<em>ndarray</em><em> (</em><em>num_samples</em><em>, </em><em>num_channels</em><em>)</em>) – ECoG data</p></li>
 <li><p><strong>fs</strong> (<em>float</em>) – ECoG data sampling frequency</p></li>
+<li><p><strong>blacklist</strong> (<em>list&lt;int&gt;</em>) – List of bad channels to ignore when computing average statistics</p></li>
 <li><p><strong>mean_frac</strong> (<em>float</em><em>, </em><em>default 0.95</em>) – Fraction of channels to include in mean. Interpolates between mean and median.</p></li>
 <li><p><strong>round_func</strong> (<em>callable</em><em>, </em><em>default np.ceil</em>) – Function that determines how to round the channel number</p></li>
 </ul>

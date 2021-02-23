@@ -45,11 +45,13 @@ def dwt(data, fs, fsds=1000, zscore=True, hg_only=False):
     for channel in data.T:
         print('Processing channel {} ...'.format(i))
         tf, _, ctr_freq, _ = wavelet_transform.wavelet_transform(channel.reshape(-1, 1), fs, filters='rat', hg_only=hg_only, X_fft_h=None, npad=None)
-
+        print(tf.shape)
         if(zscore): # Z-score channel
             ztf = np.zeros((int(np.max(tf.shape)/int(fs/int(fsds))), 1, len(ctr_freq)))
+            tf = np.abs(tf)
             for freq_band in range(len(ctr_freq)):
-                z = zscore_signal(np.abs(tf[:,0, freq_band]))
+                z = scipy.stats.zscore(tf[:,0, freq_band])
+                return z
                 z_ds = scipy.signal.resample(z, int(np.max(z.shape)/int(fs/int(fsds))), axis=0) # Downsample
                 ztf[:, 0, freq_band] = z_ds
             tf_data.append(ztf)
@@ -58,15 +60,15 @@ def dwt(data, fs, fsds=1000, zscore=True, hg_only=False):
             tf_data.append(np.abs(tf))
         i += 1
 
-
-    
     # Stacked wavelet transformed channels back together
     tf_data = np.concatenate(tf_data, axis=1)
+
     # Permute the axis to get shape (num_channels, num_bands, num_samples)
     tf_data = np.moveaxis(tf_data, 0, -1)
+
     # Flip the bands ordering so that low frequencies are at the bottom
     tf_data = np.flip(tf_data, axis=1)
-    
+
     return tf_data, np.flip(ctr_freq)
 
 def zscore_signal(signal, axis=0, mean=None, std=None):

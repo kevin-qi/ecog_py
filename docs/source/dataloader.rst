@@ -5,4 +5,3 @@ Loading ECoG Data
    :members:
    :undoc-members:
    :show-inheritance:
-   :exclude-members: get_trial_indices
