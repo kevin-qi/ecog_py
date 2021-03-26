@@ -57,9 +57,11 @@ class Experiment:
         
 
     def __repr__(self):
-        return 'Experiment: {}\nNumber of segments: {}'.format(
+        return 'Experiment: {}\nNumber of segments: {}\nOptogenetics: {}\nFields:[{}]'.format(
             self.exp_name,
-            len(self.segments)
+            len(self.segments),
+            self.has_laser,
+            'exp_name, headers_df, trials_df, stimuli_df, segments, num_trials, has_laser'
         )     
         
     def _load_segments_info(self, headers_df, trials_df):
@@ -112,11 +114,13 @@ class Experiment:
                 stim_isi = int(row['RFStimISI'])
                 stim_interval = int(row['RFStimInterval'])
                 stim_onset = int(row['RFStimOnset'])
+                self.has_laser = None
             elif stim_layout == 1: # Standard
                 stim_train_N = int(row["StdStimN"])
                 stim_isi = int(row['StdStimISI'])
                 stim_interval = int(row['StdStimISI']) # stim_interval is stim_isi for standard layout (1 stim train per sweep)
                 stim_onset = int(row['StdStimOnset'])
+                self.has_laser = None
             elif stim_layout == 7: # Standard
                 stim_train_N = int(row['MWStimN'])
                 stim_isi = int(row['MWStimISI'])
@@ -128,7 +132,8 @@ class Experiment:
                 stim_isi = int(row['StdStimISI'])
                 stim_interval = int(row['StdStimISI']) # stim_interval is stim_isi for standard layout (1 stim train per sweep)
                 stim_onset = int(row['StdStimOnset'])
-                print("WARNING: Stim_layout {} may not be supported".format(stim_layout))
+                self.has_laser = None
+                print("WARNING: stim_layout {} may not be supported".format(stim_layout))
                 
                 
             segments.append(Segment(
@@ -257,7 +262,7 @@ class Segment:
         
         
     def __repr__(self):
-        segment_repr = 'Segment Num: {}\n'.format(self.segment_num)
+        segment_repr = 'segment_num: {}\n'.format(self.segment_num)
         trial_repr = 'sweep_duration: {}\nsweep_period: {}\nfirst_trial_num: {}\nlast_trial_num: {}\n'.format(
             self.sweep_duration,
             self.sweep_period,
@@ -366,7 +371,7 @@ class Trial:
         return stimuli, whisker
 
     def __repr__(self):
-        trial_repr = 'Trial Num: {}\nSweep_duration: {}\nSweep_period: {}\n'.format(
+        trial_repr = 'trial_num: {}\nsweep_duration: {}\nsweep_period: {}\n'.format(
             self.trial_num,
             self.sweep_duration,
             self.sweep_period,
