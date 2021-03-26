@@ -9,6 +9,8 @@ data/
 *.avi
 *.pyc
 
-*/__pycache__/
+__pycache__/
+ecog_py/__pycache__/
+**/__pycache__/
 *.log
 
