@@ -19,6 +19,8 @@ class Experiment:
         DataFrame containing stimuli.csv information (Loaded from file using DataLoader module)
     num_trials : int
         Number of trials
+    has_laser : bool
+        True if using optogenetics (trials.csv contains has_laser field)
     """
     def __init__(self, headers_df, trials_df, stimuli_df):
         """
