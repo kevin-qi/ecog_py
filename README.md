@@ -40,11 +40,17 @@ ecog_py/ # project root
 # System Requirements
 This pipeline has some pretty hefty RAM requirements because wavelet transformation splits every ECoG channel into 54 bands. It is recommended to have at least 32gb of RAM or more for a smooth experience, but you could probably get by with 16gb if you try hard enough and your dataset is small (less than 1gb). The key parameter for tuning RAM usage is the final downsampling factor **after** wavelet transformation, `post_ds_factor`. If your computer freezes, try increasing the `post_ds_factor`. 
 
-# Pipeline Usage
+# Usage
 
-This ECoG processing pipeline requires a standardized data format. You may need to write some code (in any language) to convert your data into an accepted format.
+```bash
+# Activate conda environment
+$ conda activate ecog_py
 
-## Pipeline Input Format
+# Launch jupyter notebook
+$ jupyter notebook
+```
+
+## Required Files
 
 - **ECoG Data**
 	- `*TDT/_ch{}.csv`
@@ -114,7 +120,14 @@ data/
 ecog_py/
 matlab/
 ```
-## Pipeline Usage
-Now you are ready to get started! The basic pipeline template is provided in `ecog_py_pipeline_template.ipynb`. Anytime you want to run the pipeline on a new dataset, simply make a copy of the template and follow all the steps in the pipeline, filling in any required variables and parameters. The pipeline should walk you through all the steps in the analysis.
+
+## Pipeline Usage Steps
+
+1. Place all required files according to the project directory structure above.
+2. Run Tomer's matlab script (TL_processRecordingWrapper_v2.m) to convert the .ddt TDT-Adrian events file into a workable .mat file. You should now have a RawEventsMat.mat file in evt/
+3. Now you are ready to get started! A basic pipeline template is provided in `ecog_py_usage_template.ipynb`. 
+
+## ECoG Processing Tutorial 
+There is a `ECOG Processing Tutorial.ipynb` included in the repo written by John Hermiz from the Bouchard Lab. This tutorial provides a nice introduction to the basic processing steps for ECoG signals. 
 
 For more detailed documentation, check out the [ecog_py docs](https://ecog-py.readthedocs.io/en/latest/) and [process_nwb docs](https://process-nwb.readthedocs.io/en/latest/).
