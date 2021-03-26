@@ -38,8 +38,7 @@ ecog_py/ # project root
 ```
 
 # System Requirements
-This pipeline has some pretty hefty RAM requirements because wavelet transformation splits every ECoG channel into 54 bands. It is recommended to have at least 32gb of RAM or more for a smooth experience, but you could probably get by with 16gb if you try hard enough and your dataset is small (less than 1gb). The key parameter for tuning RAM usage is the final downsampling factor **after** wavelet transformation, `post_ds_factor`.  The recommended `post_ds_factor` is roughly $$\text{post\_ds\_factor} \approx round(\frac{2 * 54 *\text{raw\_ecog\_RAM} * \frac{\text{fs}}{\text{fsds}}}{\text{available\_RAM}})$$
-where `fs` is the original sampling frequency of your ECoG data (probably ~24kHz or 48kHz), `fsds` is the downsampled frequency (defaults to 3000hz), and RAM is measured in gigabytes. If your computer freezes, try increasing the `post_ds_factor`. 
+This pipeline has some pretty hefty RAM requirements because wavelet transformation splits every ECoG channel into 54 bands. It is recommended to have at least 32gb of RAM or more for a smooth experience, but you could probably get by with 16gb if you try hard enough and your dataset is small (less than 1gb). The key parameter for tuning RAM usage is the final downsampling factor **after** wavelet transformation, `post_ds_factor`. If your computer freezes, try increasing the `post_ds_factor`. 
 
 # Pipeline Usage
 
@@ -116,6 +115,6 @@ ecog_py/
 matlab/
 ```
 ## Pipeline Usage
-Now you are ready to get started! The pipeline template is provided in `ecog_py_pipeline_template.ipynb`. Anytime you want to run the pipeline on a new dataset, simply make a copy of the template and follow all the steps in the pipeline, filling in any required variables and parameters. The pipeline should walk you through all the steps in the analysis.
+Now you are ready to get started! The basic pipeline template is provided in `ecog_py_pipeline_template.ipynb`. Anytime you want to run the pipeline on a new dataset, simply make a copy of the template and follow all the steps in the pipeline, filling in any required variables and parameters. The pipeline should walk you through all the steps in the analysis.
 
 For more detailed documentation, check out the [ecog_py docs](https://ecog-py.readthedocs.io/en/latest/) and [process_nwb docs](https://process-nwb.readthedocs.io/en/latest/).
