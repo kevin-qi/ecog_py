@@ -17,6 +17,5 @@ dependencies:
   - jupyter
   - sphinx
   - pip:
-    - process-nwb
     - pynwb
     - sphinx_rtd_theme
