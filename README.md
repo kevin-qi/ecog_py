@@ -4,6 +4,8 @@
 # ecog_py
 **ecog_py** is a ECoG processing pipeline that builds on top of Bouchard Lab's [process_nwb](https://github.com/BouchardLab/process_nwb) ECoG pre-processing library. The primary purpose of this codebase is to analyze uECoG signals from mice whisker S1. 
 
+For more detailed documentation, check out the [ecog_py docs](https://ecog-py.readthedocs.io/en/latest/) and [process_nwb docs](https://process-nwb.readthedocs.io/en/latest/).
+
 # Dependencies
 
 - [conda](https://docs.conda.io/en/latest/)
@@ -130,4 +132,12 @@ matlab/
 ## ECoG Processing Tutorial 
 There is a `ECOG Processing Tutorial.ipynb` included in the repo written by John Hermiz from the Bouchard Lab. This tutorial provides a nice introduction to the basic processing steps for ECoG signals. 
 
-For more detailed documentation, check out the [ecog_py docs](https://ecog-py.readthedocs.io/en/latest/) and [process_nwb docs](https://process-nwb.readthedocs.io/en/latest/).
+# Documentation
+This library uses Sphinx to generate documentation. Please write docstrings in NumPy style.
+
+Updating documentation:
+```bash
+# Run this after changing documentation
+$ cd docs
+$ make html
+```
